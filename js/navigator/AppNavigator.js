@@ -4,7 +4,7 @@ import {
     createSwitchNavigator
 } from 'react-navigation'
 import WelcomePage from "../pages/welcome/WelcomePage";
-import HomeNavigator from "./HomeBottomNavigator";
+import HomeBottomNavigator from "./HomeBottomNavigator";
 
 
 const WelcomeStack = createStackNavigator({
@@ -17,7 +17,7 @@ const WelcomeStack = createStackNavigator({
 });
 const HomeStack = createStackNavigator({
     Home: {
-        screen: HomeNavigator,
+        screen: HomeBottomNavigator,
         navigationOptions: {
             header: null//主页全屏
         }
