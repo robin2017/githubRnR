@@ -1,31 +1,34 @@
-/**
- * Created by robin on 2019/3/5
- */
-
-import React, {Component} from 'react';
 import {
-    Platform,
-    StyleSheet,
-    Button,
-    Text,
-    View
-} from 'react-native';
+    createAppContainer,
+    createStackNavigator,
+    createSwitchNavigator
+} from 'react-navigation'
+import WelcomePage from "../pages/welcome/WelcomePage";
+import HomeNavigator from "./HomeNavigator";
 
-export default class AppNavigator extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>AppNavigator</Text>
-            </View>
-        );
-    }
-}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+const WelcomeStack = createStackNavigator({
+    Welcome: {
+        screen: WelcomePage,
+        navigationOptions: {
+            header: null//欢迎页全屏
+        }
     }
 });
+const HomeStack = createStackNavigator({
+    Home: {
+        screen: HomeNavigator,
+        navigationOptions: {
+            header: null//主页全屏
+        }
+    }
+});
+export default createAppContainer(createSwitchNavigator(
+    {
+        Welcome: WelcomeStack,
+        Home: HomeStack
+    },
+    {
+        initialRouteName: 'Welcome'
+    }
+))
