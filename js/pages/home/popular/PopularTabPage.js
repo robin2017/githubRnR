@@ -4,18 +4,18 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Button,
     Text,
     View
 } from 'react-native';
 
-export default class PopularPage extends Component {
+export default class PopularTabPage extends Component {
     render() {
+        const {tabLabel} = this.props;
         return (
             <View style={styles.container}>
-                <Text>PopularPage</Text>
+                <Text>PopularTabPage</Text>
+                <Text>tab参数:{tabLabel}</Text>
             </View>
         );
     }

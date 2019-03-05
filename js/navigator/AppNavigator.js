@@ -4,7 +4,7 @@ import {
     createSwitchNavigator
 } from 'react-navigation'
 import WelcomePage from "../pages/welcome/WelcomePage";
-import HomeNavigator from "./HomeNavigator";
+import HomeNavigator from "./HomeBottomNavigator";
 
 
 const WelcomeStack = createStackNavigator({

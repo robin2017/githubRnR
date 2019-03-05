@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react'
 import {createAppContainer, createBottomTabNavigator} from 'react-navigation'
 
-import PopularPage from "../pages/home/popular/PopularPage";
+import PopularTopNavigator from "./PopularTopNavigator";
 import TrendingPage from "../pages/home/trending/TrendingPage";
 import FavoritePage from "../pages/home/favorite/FavoritePage";
 import MyPage from "../pages/home/my/MyPage";
@@ -13,7 +13,7 @@ import {BottomTabBar} from "react-navigation-tabs";
 
 const BOTTOM_TABS = {
     Popular: {
-        screen: PopularPage,
+        screen: PopularTopNavigator,
         navigationOptions: {
             tabBarLabel: '最热',
             tabBarIcon: ({tintColor, focused}) => (
