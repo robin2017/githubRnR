@@ -9,6 +9,7 @@ import MyPage from "../pages/home/my/MyPage";
 import Entypo from "react-native-vector-icons/Entypo";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import {BottomTabBar} from "react-navigation-tabs";
 
 const BOTTOM_TABS = {
     Popular: {
@@ -63,4 +64,32 @@ const BOTTOM_TABS = {
 const {Popular, Trending, Favorite, My} = BOTTOM_TABS;
 const tabs = {Popular, Trending, Favorite, My};//根据需要配置
 
-export default createAppContainer(createBottomTabNavigator(tabs))
+
+class TabBarComponent extends React.Component {
+    constructor(props) {
+        super(props)
+        this.theme = {
+            tintColor: props.activeTintColor,
+            updateTime: new Date().getTime(),
+        }
+    }
+
+    render() {
+        const {routes, index} = this.props.navigation.state;
+        console.log('HomeNavigator-render中接收参数routes,index', routes, index);
+        if (routes[index].params) {
+            const {theme} = routes[index].params;
+            if (theme && theme.updateTime > this.theme.updateTime) {
+                this.theme = theme;
+            }
+        }
+        return <BottomTabBar
+            {...this.props}
+            activeTintColor={this.theme.tintColor || this.props.activeTintColor}
+        />
+    }
+}
+
+export default createAppContainer(createBottomTabNavigator(tabs,
+    {tabBarComponent: TabBarComponent}
+))

@@ -16,7 +16,7 @@ export default class WelcomePage extends Component {
                 navigation: this.props.navigation
             };
             NavigationUtil.goPage(params, 'Home')
-        }, 2000)
+        }, 200)
     }
 
     componentWillUnmount() {
