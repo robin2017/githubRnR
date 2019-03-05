@@ -3,7 +3,7 @@ import {createAppContainer, createMaterialTopTabNavigator} from 'react-navigatio
 import {
     StyleSheet,
 } from 'react-native';
-import PopularTab from '../pages/home/popular/PopularTabPage'
+import PopularTabPage from '../pages/home/popular/PopularTabPage'
 
 
 const TOP_TABS_NAMES = ['Java', 'Android', 'Ios', 'React', 'React Native', 'Vue'];
@@ -12,7 +12,7 @@ function genTabs() {
     const tabs = {};
     TOP_TABS_NAMES.forEach((item, index) => {
         tabs[`tab${index}`] = {
-            screen: props => <PopularTab {...props} tabLabel={item}/>,
+            screen: props => <PopularTabPage {...props} tabLabel={item}/>,
             navigationOptions: {
                 title: item,
             }
