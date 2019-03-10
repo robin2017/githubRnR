@@ -16,7 +16,7 @@ export default class WelcomePage extends Component {
                 navigation: this.props.navigation
             };
             NavigationUtil.goPage(params, 'Home')
-        }, 2000)
+        }, 20)
     }
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer)
@@ -24,7 +24,7 @@ export default class WelcomePage extends Component {
     render() {
         return (
             <ImageBackground style={styles.container}
-                             source={require('./github_cat.jpg')}>
+                             source={require('../../../assets/images/github_cat.jpg')}>
             </ImageBackground>
         );
     }

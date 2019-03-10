@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import DataStore from '../../../dao/DataStore'
 import {
     Platform,
     StyleSheet,
@@ -8,6 +9,11 @@ import {
 } from 'react-native';
 
 export default class MyPage extends Component {
+    constructor(props) {
+        super(props)
+        this.dataStore = new DataStore()
+    }
+
     render() {
         const {navigation} = this.props;
         return (
@@ -23,6 +29,12 @@ export default class MyPage extends Component {
                             };
                             console.log('MyPage-路由设置参数：', params);
                             navigation.setParams(params)
+                        }}/>
+                <Button title='网络测试'
+                        onPress={() => {
+                            this.dataStore.fetchData('C', 3).then(data => {
+                                console.log('data:', data)
+                            })
                         }}/>
             </View>
         );
