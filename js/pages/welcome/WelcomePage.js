@@ -1,7 +1,6 @@
 /**
  * Created by robin on 2019/3/5
  */
-
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -17,13 +16,11 @@ export default class WelcomePage extends Component {
                 navigation: this.props.navigation
             };
             NavigationUtil.goPage(params, 'Home')
-        }, 3000)
+        }, 2000)
     }
-
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer)
     }
-
     render() {
         return (
             <ImageBackground style={styles.container}
