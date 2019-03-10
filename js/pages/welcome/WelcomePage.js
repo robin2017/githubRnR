@@ -6,7 +6,8 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    ImageBackground
 } from 'react-native';
 import NavigationUtil from "../../navigator/utils/NavigationUtil";
 export default class WelcomePage extends Component {
@@ -16,7 +17,7 @@ export default class WelcomePage extends Component {
                 navigation: this.props.navigation
             };
             NavigationUtil.goPage(params, 'Home')
-        }, 2000)
+        }, 3000)
     }
 
     componentWillUnmount() {
@@ -25,17 +26,14 @@ export default class WelcomePage extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>WelcomePage</Text>
-            </View>
+            <ImageBackground style={styles.container}
+                             source={require('./github_cat.jpg')}>
+            </ImageBackground>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     }
 });
