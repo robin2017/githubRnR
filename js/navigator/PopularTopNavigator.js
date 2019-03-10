@@ -12,7 +12,7 @@ function genTabs() {
     const tabs = {};
     TOP_TABS_NAMES.forEach((item, index) => {
         tabs[`tab${index}`] = {
-            screen: props => <PopularTabPage {...props} tabLabel={item}/>,
+            screen: props => <PopularTabPage {...props} storeName={item}/>,
             navigationOptions: {
                 title: item,
             }

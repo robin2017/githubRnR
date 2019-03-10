@@ -15,18 +15,18 @@ export default class DataStore {
             AsyncStorage.getItem(storeName, (error, result) => {
                 //没取到数据，从网络获取
                 if (!result) {
-                    resolve(this.fetchNetData(storeName, pageIndex))
+                    return resolve(this.fetchNetData(storeName, pageIndex))
                 }
                 //取到正常数据数据，
                 let data = JSON.parse(result)
-                if(data.pageIndex>=pageIndex){
-                    resolve(data)
+                if (data.pageIndex >= pageIndex) {
+                    return resolve(data)
                 }
                 //pageIndex小1
-                if(data.pageIndex===pageIndex-1){
-                    resolve(this.fetchNetData(storeName, pageIndex))
-                }else{
-                    reject("pageIndex不能调变")
+                if (data.pageIndex === pageIndex - 1) {
+                    return resolve(this.fetchNetData(storeName, pageIndex))
+                } else {
+                    return reject("pageIndex不能调变")
                 }
             })
         })
@@ -37,7 +37,7 @@ export default class DataStore {
      * 返回promise-true
      * */
     fetchNetData(storeName, pageIndex) {
-        let url = QUERY_URL + storeName+`&page=${pageIndex}&per_page=${PER_PAGE}`;
+        let url = QUERY_URL + storeName + `&page=${pageIndex}&per_page=${PER_PAGE}`;
         return fetch(url).then(response => {
             if (response.ok) {
                 return response.json()
