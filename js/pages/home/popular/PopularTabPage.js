@@ -21,7 +21,7 @@ class PopularTabUiPage extends Component {
 
     componentDidMount() {
         console.log('componentDidMount :',this.storeName)
-        this.props.onPopularFresh(this.storeName, 1)
+       // this.props.onPopularFresh(this.storeName, 1)
     }
 
     renderItem(data) {
@@ -34,9 +34,10 @@ class PopularTabUiPage extends Component {
         console.log('FlatList数据：', items)
         return (
             <View style={styles.container}>
-                <FlatList data={items}
-                          renderItem={data => this.renderItem(data)}
-                />
+                <Text>storeName:{this.storeName}</Text>
+                {/*<FlatList data={items}*/}
+                          {/*renderItem={data => this.renderItem(data)}*/}
+                {/*/>*/}
             </View>
         );
     }

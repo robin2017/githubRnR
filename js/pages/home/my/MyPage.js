@@ -32,8 +32,10 @@ export default class MyPage extends Component {
                         }}/>
                 <Button title='网络测试'
                         onPress={() => {
-                            this.dataStore.fetchData('C', 3).then(data => {
-                                console.log('data:', data)
+                            this.dataStore.fetchData('python', 4).then(data => {
+                                console.log('myPage获取数据::', data)
+                            }).catch(error => {
+                                console.error('myPage报错:', error)
                             })
                         }}/>
             </View>

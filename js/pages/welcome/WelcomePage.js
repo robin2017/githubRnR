@@ -16,16 +16,19 @@ export default class WelcomePage extends Component {
                 navigation: this.props.navigation
             };
             NavigationUtil.goPage(params, 'Home')
-        }, 20)
+        })
     }
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer)
     }
     render() {
         return (
-            <ImageBackground style={styles.container}
-                             source={require('../../../assets/images/github_cat.jpg')}>
-            </ImageBackground>
+            <View style={{flex:1}}>
+                <Text>Hello</Text>
+            </View>
+            // {/*<ImageBackground style={styles.container}*/}
+            //                  {/*source={require('../../../assets/images/github_cat.jpg')}>*/}
+            // {/*</ImageBackground>*/}
         );
     }
 }
