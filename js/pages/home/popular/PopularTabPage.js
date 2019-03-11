@@ -20,24 +20,28 @@ class PopularTabUiPage extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount :',this.storeName)
-       // this.props.onPopularFresh(this.storeName, 1)
+        console.log('componentDidMount :', this.storeName)
+        this.props.onPopularFresh(this.storeName, 1)
     }
 
     renderItem(data) {
         const item = data.item;
-        return (<View>{item}</View>)
+        return (
+            <View>
+                <Text>{item.description}</Text>
+            </View>
+        )
     }
 
     render() {
-        const items = this.props.popular[this.storeName];
-        console.log('FlatList数据：', items)
+        let data = this.props.popular[this.storeName];
+        data = data || {items: []};
+        console.log('FlatList数据：', data)
         return (
             <View style={styles.container}>
-                <Text>storeName:{this.storeName}</Text>
-                {/*<FlatList data={items}*/}
-                          {/*renderItem={data => this.renderItem(data)}*/}
-                {/*/>*/}
+                <FlatList data={data.items}
+                          renderItem={item => this.renderItem(item)}
+                          keyExtractor={item => "" + item.id}/>
             </View>
         );
     }

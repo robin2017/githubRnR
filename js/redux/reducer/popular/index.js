@@ -16,7 +16,7 @@ export default function (state = {}, action) {
                 [action.storeName]: {
                     ...state[action.storeName],
                     isLoading: false,
-                    items: action.items
+                    items: action.data.items
                 }
             };
         case Types.POPULAR_REFRESH_FAIL:
