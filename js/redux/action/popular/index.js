@@ -5,6 +5,7 @@ const dataStore = new DataStore();
 
 export function onPopularRefresh(storeName, pageIndex) {
     return dispatch => {
+        console.log('ACTION分发:', Types.POPULAR_REFRESH)
         dispatch({type: Types.POPULAR_REFRESH, storeName});
         dataStore.fetchData(storeName, pageIndex).then(data => {
             console.log('dao层获取数据：', storeName, pageIndex, data);
@@ -18,8 +19,10 @@ export function onPopularRefresh(storeName, pageIndex) {
  * */
 export function onPopularLoad(storeName, pageIndex) {
     return dispatch => {
+        console.log('ACTION分发:', Types.POPULAR_LOAD)
         dispatch({type: Types.POPULAR_LOAD, storeName});
         dataStore.fetchData(storeName, pageIndex).then(data => {
+            console.log('ACTION分发:', Types.POPULAR_LOAD_SUCCESS)
             console.log('dao层获取数据：', storeName, pageIndex, data);
             dispatch({type: Types.POPULAR_LOAD_SUCCESS, storeName, data})
         })

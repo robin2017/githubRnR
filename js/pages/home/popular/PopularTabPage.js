@@ -71,7 +71,7 @@ class PopularTabUiPage extends Component {
             <View style={styles.container}>
                 <FlatList data={data.items}
                           renderItem={item => this.renderItem(item)}
-                          keyExtractor={item => "" + item.id}
+                          keyExtractor={(item, index) => "" + item.id + "-" + index}
                           refreshControl={
                               <RefreshControl
                                   title='loading'
@@ -81,13 +81,12 @@ class PopularTabUiPage extends Component {
                           }
                           ListFooterComponent={() => this.genFootComponent(data)}
                           onEndReached={() => {
-                              setTimeout(() => {
-                                  //不能两个loading同时，这样会导致pageIndex跳变
-                                  if (this.canLoadMore) {//fix 滚动时两次调用onEndReached https://github.com/facebook/react-native/issues/14015
-                                      this.loadData(true);
-                                      this.canLoadMore = false;
-                                  }
-                              }, 100);
+                              //不能两个loading同时，这样会导致pageIndex跳变
+                              if (this.canLoadMore) {//fix 滚动时两次调用onEndReached https://github.com/facebook/react-native/issues/14015
+                                  this.loadData(true);
+                                  this.canLoadMore = false;
+                              }
+
                           }}
                           onEndReachedThreshold={0.5}
                           onMomentumScrollBegin={() => {
