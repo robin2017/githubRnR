@@ -6,8 +6,10 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
+    Text,
     FlatList,
-    RefreshControl
+    RefreshControl,
+    ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux'
 import action from '../../../redux/action'
@@ -17,9 +19,10 @@ class PopularTabUiPage extends Component {
     constructor(props) {
         super(props);
         const {storeName} = this.props;
-        //每个tab有两个属性
+        //每个tab有两个个属性
         this.storeName = storeName;
-        this.pageIndex = 1
+        this.pageIndex = 1;
+
 
     }
 
@@ -34,12 +37,21 @@ class PopularTabUiPage extends Component {
      * 上拉刷新/下拉加载更多都由此控制
      * */
     loadData(isLoadMore) {
-        const {onPopularFresh} = this.props;
+        console.log('-------loadData------', isLoadMore, this.pageIndex)
+        const {onPopularRefresh, onPopularLoad} = this.props;
         if (isLoadMore) {
-
+            onPopularLoad(this.storeName, ++this.pageIndex)
         } else {
-            onPopularFresh(this.storeName, this.pageIndex)
+            onPopularRefresh(this.storeName, this.pageIndex)
         }
+    }
+
+    genFootComponent(data) {
+        return data.isLoading ? null :
+            <View style={styles.indicatorContainer}>
+                <ActivityIndicator style={styles.indicator}/>
+                <Text>正在加载更多</Text>
+            </View>
     }
 
     renderItem(data) {
@@ -47,6 +59,7 @@ class PopularTabUiPage extends Component {
         return <ListItem
             item={item}
             onSelect={() => {
+
             }}/>
     }
 
@@ -62,10 +75,24 @@ class PopularTabUiPage extends Component {
                           refreshControl={
                               <RefreshControl
                                   title='loading'
-                                  refreshing={data.isLoading}
+                                  refreshing={data.isRefreshing}
                                   onRefresh={() => this.loadData(false)}
                               />
                           }
+                          ListFooterComponent={() => this.genFootComponent(data)}
+                          onEndReached={() => {
+                              setTimeout(() => {
+                                  //不能两个loading同时，这样会导致pageIndex跳变
+                                  if (this.canLoadMore) {//fix 滚动时两次调用onEndReached https://github.com/facebook/react-native/issues/14015
+                                      this.loadData(true);
+                                      this.canLoadMore = false;
+                                  }
+                              }, 100);
+                          }}
+                          onEndReachedThreshold={0.5}
+                          onMomentumScrollBegin={() => {
+                              this.canLoadMore = true; //fix 初始化时页调用onEndReached的问题
+                          }}
                 />
             </View>
         );
@@ -78,6 +105,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+    },
+    indicatorContainer: {
+        alignItems: "center"
+    },
+    indicator: {
+        color: 'red',
+        margin: 10
     }
 });
 
@@ -85,9 +119,12 @@ const mapStateToProps = (state) => ({
     popular: state.popular //state.popular是在reducer中定义
 });
 const mapDispatchToProps = (dispatch) => ({
-    onPopularFresh: function () {
-        dispatch(action.onPopularFresh(...arguments))
+    onPopularRefresh: function () {
+        dispatch(action.onPopularRefresh(...arguments))
+    },
+    onPopularLoad: function () {
+        dispatch(action.onPopularLoad(...arguments))
     }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopularTabUiPage)

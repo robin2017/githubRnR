@@ -1,5 +1,6 @@
-import {onPopularFresh} from './popular'
+import {onPopularRefresh,onPopularLoad} from './popular'
 
 export default {
-    onPopularFresh
+    onPopularRefresh,
+    onPopularLoad
 }
